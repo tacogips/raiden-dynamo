@@ -1,0 +1,37 @@
+[package]
+name = "raiden"
+version = "0.1.0"
+authors = ["bokuweb <bokuweb12@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+raiden-derive = { version = "*", path = "../raiden-derive" }
+rusoto_credential = "0.46"
+rusoto_core_default = { package = "rusoto_core", version = "0.46", optional = true }
+rusoto_core_rustls = { package = "rusoto_core", version = "0.46", default_features = false, features=["rustls"], optional = true }
+rusoto_dynamodb_default = { package = "rusoto_dynamodb", version = "0.46", features=["serialize_structs"], optional = true }
+rusoto_dynamodb_rustls = { package = "rusoto_dynamodb", version = "0.46", default_features = false, features=["rustls", "serialize_structs"], optional = true }
+uuid = { version = "^0.8", features = ["v4"], optional = true }
+async-trait = "^0.1.50"
+rust-crypto = "^0.2"
+serde = { version = "^1", features = ["derive"] }
+serde_json = "^1"
+serde_derive = "^1"
+base64 = "^0.13"
+thiserror = "^1"
+safe-builder = { tag = "0.0.5", git = "https://github.com/raiden-rs/safe-builder.git" }
+again = "0.1"
+log = "0.4"
+pretty_env_logger = "0.4"
+
+[dev-dependencies]
+pretty_assertions = "0.7.1"
+tokio = "1.9.0"
+insta = "1.7.0"
+
+
+[features]
+default = ["uuid", "rusoto_core_default", "rusoto_dynamodb_default"]
+rustls = ["uuid", "rusoto_core_rustls", "rusoto_dynamodb_rustls"]
